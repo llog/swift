@@ -1,13 +1,18 @@
-FROM ubuntu:14.04.4
+# ubuntu xenial-10160818
+FROM ubuntu:latest
 MAINTAINER huaixiaoz hello@itmp.top
 
-ENV SWIFT_BRANCH development
-ENV SWIFT_VERSION DEVELOPMENT-SNAPSHOT-2016-05-09-a
-ENV SWIFT_PLATFORM ubuntu14.04
+# https://swift.org/builds/swift-3.0-release/ubuntu1510/swift-3.0-RELEASE/swift-3.0-RELEASE-ubuntu15.10.tar.gz
+#ENV SWIFT_BRANCH development
+#ENV SWIFT_VERSION DEVELOPMENT-SNAPSHOT-2016-09-02-a
+#ENV SWIFT_PLATFORM ubuntu15.10
+ENV SWIFT_BRANCH swift-3.0-release
+ENV SWIFT_VERSION 3.0-RELEASE
+ENV SWIFT_PLATFORM ubuntu15.10
 
 # Install related packages
 RUN apt-get update && \
-    apt-get install -y build-essential wget clang libedit-dev python2.7 python2.7-dev libicu52 rsync libxml2 git htop psmisc vim&& \
+    apt-get install -y build-essential wget clang libedit-dev python2.7 python2.7-dev libicu55 rsync libxml2 git htop psmisc vim cloc && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -31,5 +36,5 @@ ENV PATH /usr/bin:$PATH
 RUN swift --version
 
 # Go to Workspace
-RUN mkdir -p /opt/work
-WORKDIR /opt/work
+RUN mkdir -p /opt/space
+WORKDIR /opt/space
