@@ -11,23 +11,41 @@ ENV SWIFT_VERSION 3.1-RELEASE
 ENV SWIFT_PLATFORM ubuntu16.10
 
 # Install related packages
-RUN apt-get update && \
-    apt-get install -y build-essential wget clang libedit-dev python2.7 python2.7-dev libicu55 rsync libxml2 git htop psmisc vim cloc openssh-server && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update \
+	&& apt-get install -y build-essential \
+ 	wget \
+	clang \
+	curl \
+	libedit-dev \
+	python2.7 \
+	python2.7-dev \
+	libicu-dev \
+	libssl-dev \
+	libxml2 \
+	libcurl4-openssl-dev \
+	pkg-config \
+	rsync \
+	git \
+	htop \
+	psmisc \
+	vim \
+	cloc \
+	openssh-server \
+    && apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Swift keys
-RUN wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import - && \
-    gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
+RUN wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import - \
+	&& gpg --keyserver hkp://pool.sks-keyservers.net --refresh-keys Swift
 
 # Install Swift Ubuntu 14.04 Snapshot
-RUN SWIFT_ARCHIVE_NAME=swift-$SWIFT_VERSION-$SWIFT_PLATFORM && \
-    SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | tr -d .)/swift-$SWIFT_VERSION/$SWIFT_ARCHIVE_NAME.tar.gz && \
-    wget $SWIFT_URL && \
-    wget $SWIFT_URL.sig && \
-    gpg --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig && \
-    tar -xvzf $SWIFT_ARCHIVE_NAME.tar.gz --directory / --strip-components=1 && \
-    rm -rf $SWIFT_ARCHIVE_NAME* /tmp/* /var/tmp/*
+RUN SWIFT_ARCHIVE_NAME=swift-$SWIFT_VERSION-$SWIFT_PLATFORM \
+	&& SWIFT_URL=https://swift.org/builds/$SWIFT_BRANCH/$(echo "$SWIFT_PLATFORM" | tr -d .)/swift-$SWIFT_VERSION/$SWIFT_ARCHIVE_NAME.tar.gz \
+	&& wget $SWIFT_URL \
+	&& wget $SWIFT_URL.sig \
+	&& gpg --batch --verify $SWIFT_ARCHIVE_NAME.tar.gz.sig $SWIFT_ARCHIVE_NAME.tar.gz \
+	&& tar -xvzf $SWIFT_ARCHIVE_NAME.tar.gz --directory / --strip-components=1 \
+	&& rm -rf $SWIFT_ARCHIVE_NAME* /tmp/* /var/tmp/*
 
 # Set Swift Path
 ENV PATH /usr/bin:$PATH
@@ -36,5 +54,5 @@ ENV PATH /usr/bin:$PATH
 RUN swift --version
 
 # Go to Workspace
-RUN mkdir -p /opt/space
-WORKDIR /opt/space
+RUN mkdir -p /opt/swift
+WORKDIR /opt/swift
