@@ -10,6 +10,9 @@ ENV SWIFT_BRANCH swift-3.1-release
 ENV SWIFT_VERSION 3.1-RELEASE
 ENV SWIFT_PLATFORM ubuntu16.10
 
+## update mirror source
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+
 # Install related packages
 RUN apt-get update \
 	&& apt-get install -y build-essential \
