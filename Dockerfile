@@ -12,7 +12,7 @@ ENV SWIFT_PLATFORM ubuntu16.10
 
 # Install related packages
 RUN apt-get update && \
-    apt-get install -y build-essential wget clang libedit-dev python2.7 python2.7-dev libicu55 rsync libxml2 git htop psmisc vim cloc && \
+    apt-get install -y build-essential wget clang libedit-dev python2.7 python2.7-dev libicu55 rsync libxml2 git htop psmisc vim cloc openssh-server && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
