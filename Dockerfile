@@ -16,6 +16,7 @@ RUN apt-get update \
  	wget \
 	clang \
 	curl \
+	libstdc++6 \
 	libedit-dev \
 	python2.7 \
 	python2.7-dev \
