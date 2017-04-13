@@ -8,7 +8,7 @@ MAINTAINER huaixiaoz hello@itmp.top
 #ENV SWIFT_PLATFORM ubuntu15.10
 ENV SWIFT_BRANCH swift-3.1-release
 ENV SWIFT_VERSION 3.1-RELEASE
-ENV SWIFT_PLATFORM ubuntu16.10
+ENV SWIFT_PLATFORM ubuntu16.04
 
 # Install related packages
 RUN apt-get update \
@@ -16,7 +16,6 @@ RUN apt-get update \
  	wget \
 	clang \
 	curl \
-	libstdc++6 \
 	libedit-dev \
 	python2.7 \
 	python2.7-dev \
